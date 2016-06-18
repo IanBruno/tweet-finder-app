@@ -17,3 +17,5 @@ Primer Comando:
 	rm -rf node_modules 
 	npm cache clean 
 	npm config set registry "http://registry.npmjs.org/"
+
+	npm set registry http://r.cnpmjs.org/
