@@ -9,22 +9,18 @@ Esta aplicación está desarrollada con las siguientes tecnologías:
 * Html
 * Bootstrap
 
-Primaremente debemos de clonar este repositorio localmente, ya que es necesario correrlo
-en el servidor de node.js.
+Primaremente debemos de clonar este repositorio localmente.
 
 Para correr esta aplicación es necesario tener instalado Node js,
-si no se tiene instalada está paquetería, se puede descargar del 
+si no se tiene instalada esta herramienta, se puede descargar del 
 siguiente link: 
 
 https://nodejs.org/en/
 
 Una vez que se tiene instalado Node js abrimos la consola de este mismo
-(Node.js commando prompt)  la cuál se instala con la misma paquetería.
+(Node.js commando prompt)  la cuál se instala con la misma herramienta.
 
-Dentro de la consola tenemos que dirigirnos a la ruta de nuestra aplicación
-esta sería similar a:
-
-* C:\Users\User\Documents\tweet-finder-app>
+Dentro de la consola tenemos que dirigirnos a la raiz de nuestra aplicación.
 
 Una vez que estamos dentro del directorio de nuestra aplicación necesitamos instalar
 las dependencias necesarias para correr nuestra aplicación, estás dependencias están
