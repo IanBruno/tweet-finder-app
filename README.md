@@ -41,6 +41,3 @@ http://localhost:8000/
 En cuanto la aplicación cargue, aparecerá el encabezado y y dos formularios;
 dentro de estos es necesario escribir una palabra o más para realizar una búsqueda, se puede hacer
 dos búsquedas al mismo tiempo y comparar los resultados.
-
-
-
