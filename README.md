@@ -9,7 +9,7 @@ Esta aplicación está desarrollada con las siguientes tecnologías:
 * Html
 * Bootstrap
 
-Primaremente debemos de este repositorio localmente, ya que es necesario correrlo
+Primaremente debemos de clonar este repositorio localmente, ya que es necesario correrlo
 en el servidor de node.js.
 
 Para correr esta aplicación es necesario tener instalado Node js,
