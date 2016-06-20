@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html ng-app="tweetModule">
+<head >
+<title>Title of the document</title>
+
+<link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'/>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css' integrity='sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r' crossorigin='anonymous'/>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-resource.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-route.js'></script>
+    <script src='/javascripts/angular_script.js'></script>
+
+    <script>
+	function search(query){
+		 $.ajax({
+	   type: 'GET',
+	   async:true,
+	   url: '/search?q='+query.replace(/ /g,"\%20"),
+	}).done(function(data) { 
+	  $.each( data.statuses, function( key, value ) {
+		groupItem = createGroupItem(value.user.profile_image_url,value.created_at,value.user.name,value.text);
+		$("#listTweets1").append(groupItem);
+	});
+	});
+	}
+	$(document).ready(function(){
+	$('#search1').click(function(){
+	    search($("#query1").val());
+	});
+	});
+
+	function createGroupItem(urlImagen,tiempo,usuario,texto){
+	    var groupItem="";
+		        groupItem+='<div class="list-group-item">';
+	             groupItem+='  <div class="row-action-primary">';
+	             groupItem+='<img src="'+urlImagen+'" alt="Mountain View" style="width:50px;height:50px;">';
+	             groupItem+=' </div>';
+	             groupItem+=' <div class="row-content">';
+	             groupItem+='   <div class="least-content">'+tiempo+'</div>';
+	             groupItem+=' <h4 class="list-group-item-heading">'+usuario+'</h4>';
+	             groupItem+='   <p class="list-group-item-text">'+texto+'</p>';
+	              groupItem+='</div></div><div class="divider"></div>';
+		return groupItem;		  
+	}
+</script>
+</head>
+
+<body>
+	<div class = "page-header">
+	   <h1>
+	      &emsp;Busca Tweets
+	   </h1>
+	   &emsp;<label>Introduce una palabra para buscar tweets que contengan esta misma y compara entre las 2 listas de resultados. </label>
+	</div>
+    <div class="row">
+        <div class="col-md-6" ng-controller="tweetController">
+            <div class="row">
+                <div class="col-md-12">
+                	<form class="form-inline">
+	                    <div class="form-group">
+	                        <input type="text" class="form-control" placeholder="Palabra 1" id="query1" ng-model="wordSearch1">
+	                    	<button class="btn btn-default" ng-click="searchTweetFunc(wordSearch1)">Buscar</button>
+                    	</div>
+                    </form>
+                	</br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bs-component">
+                    	<div ng-repeat="tweet in tweets.statuses"> 
+                    		<div class="list-group-item">
+                    			<div class="row">
+                    				<div class="col-md-3">
+				             			<div class="row-action-primary avatar">
+				             				<img src="{{tweet.user.profile_image_url}}" alt="Mountain View" style="width:70px;height:70px;">
+				             			</div>
+				             		</div>
+							   		<div class="col-md-9">
+							   			<div class="row-content">
+							   			<div class="row">
+							   				<div class="col-md-6">
+							   					<h4 class="list-group-item-heading">{{tweet.user.name}}</h4>
+							   				</div>
+							   				<div class="col-md-6">
+				             					<div class="least-content">{{tweet.user.created_at}} </div>
+				             				</div>
+				             			</div>
+				             			<div class="row">
+				             				<div class="col-md-12">
+				             					<p class="list-group-item-text">{{tweet.user.description}}</p>
+				             				</div>
+				             			</div>
+				             			</div>
+				             		</div>
+				             	</div>
+				             </div>
+	             			<div class="divider"></div>
+                    	</div>
+                        <div class="list-group" id="listTweets1" >
+                        </div>
+                        <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" ng-controller="tweetController2">
+            <div class="row">
+                <div class="col-md-12">
+                	<form class="form-inline">
+	                    <div class="form-group">
+	                        <input type="text" class="form-control" placeholder="Palabra 2" ng-model="wordSearch2">
+	                    	<button type="submit" class="btn btn-default" ng-click="searchTweetFunc2(wordSearch2)">Buscar</button>
+	                    </div>
+	                </form>
+	            	</br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bs-component">
+                        	<div ng-repeat="tweet2 in tweets2.statuses"> 
+	                    		<div class="list-group-item">
+		             			<div class="row">
+                    				<div class="col-md-3">
+				             			<div class="row-action-primary avatar">
+				             				<img src="{{tweet2.user.profile_image_url}}" alt="Mountain View" style="width:70px;height:70px;">
+				             			</div>
+				             		</div>
+							   		<div class="col-md-9">
+							   			<div class="row-content">
+							   			<div class="row">
+							   				<div class="col-md-6">
+							   					<h4 class="list-group-item-heading">{{tweet2.user.name}}</h4>
+							   				</div>
+							   				<div class="col-md-6">
+				             					<div class="least-content">{{tweet2.user.created_at}} </div>
+				             				</div>
+				             			</div>
+				             			<div class="row">
+				             				<div class="col-md-12">
+				             					<p class="list-group-item-text">{{tweet2.user.description}}</p>
+				             				</div>
+				             			</div>
+				             			</div>
+				             		</div>
+				             	</div>
+		             			</div><div class="divider"></div>
+	                    	</div>
+                           
+                           <div class="divider"></div>
+                        </div>
+                        <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
